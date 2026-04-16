@@ -1,0 +1,78 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Заказ #{{ zakaz.id }}{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <h1>Заказ #{{ zakaz.id }}</h1>
+    
+    <div class="detail-card">
+        <div class="detail-group">
+            <label>Пользователь:</label>
+            <p>{{ zakaz.user.FIO }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Телефон:</label>
+            <p>{{ zakaz.user.Number }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Адрес доставки:</label>
+            <p>{{ zakaz.user.Address }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Сумма заказа:</label>
+            <p class="price">{{ zakaz.Symma }} ₽</p>
+        </div>
+        <div class="detail-group">
+            <label>Способ оплаты:</label>
+            <p>{{ zakaz.get_Sposob_oplati_display }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Статус:</label>
+            <p>
+                <span class="status status-{{ zakaz.status }}">
+                    {{ zakaz.get_status_display }}
+                </span>
+            </p>
+        </div>
+        <div class="detail-group">
+            <label>Дата создания:</label>
+            <p>{{ zakaz.created_at|date:"d.m.Y H:i" }}</p>
+        </div>
+    </div>
+    
+    <h2>Состав заказа</h2>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.tovar.Vid_tovara }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }} ₽</td>
+                    <td>{{ item.price|multiply:item.quantity }} ₽</td>
+                </tr>
+                {% endfor %}
+                <tr class="total-row">
+                    <td colspan="3"><strong>Итого:</strong></td>
+                    <td><strong>{{ zakaz.Symma }} ₽</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="detail-actions">
+        <a href="{% url 'zakaz_update' zakaz.pk %}" class="btn">Редактировать</a>
+        <a href="{% url 'zakaz_list' %}" class="btn btn-outline">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}

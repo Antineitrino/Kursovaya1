@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Личный кабинет{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <h1>Личный кабинет</h1>
+    
+    <div class="account-info">
+        <div class="info-card">
+            <h3>Личные данные</h3>
+            <p><strong>ФИО:</strong> {{ user.FIO }}</p>
+            <p><strong>Телефон:</strong> {{ user.Number }}</p>
+            <p><strong>Адрес:</strong> {{ user.Address }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <a href="{% url 'account_edit' %}" class="btn btn-small">Редактировать</a>
+        </div>
+        
+        <div class="info-card">
+            <h3>Статистика</h3>
+            <p><strong>Всего заказов:</strong> {{ orders.count }}</p>
+            <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+        </div>
+    </div>
+    
+    <h2>История заказов</h2>
+    
+    {% if orders %}
+    <div class="orders-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>№ заказа</th>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ order.Symma }} ₽</td>
+                    <td>
+                        <span class="status status-{{ order.status }}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'zakaz_detail' order.pk %}" class="btn btn-small">Детали</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-orders">
+        <p>У вас пока нет заказов</p>
+        <a href="{% url 'catalog' %}" class="btn">Сделать первый заказ</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

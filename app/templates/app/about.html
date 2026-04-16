@@ -1,0 +1,73 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - О нас{% endblock %}
+
+{% block content %}
+<div class="about-container">
+    <h1>О нашей пиццерии</h1>
+    
+    <div class="about-hero">
+        <img src="https://via.placeholder.com/1200x400" alt="Pizzeria" class="about-image">
+    </div>
+    
+    <div class="about-content">
+        <div class="about-text">
+            <h2>Добро пожаловать в PizzaHouse!</h2>
+            <p>Мы готовим пиццу с любовью и использованием только свежих ингредиентов. Наша история началась в 2010 году с маленькой пиццерии, а сегодня мы радуем тысячи клиентов каждый день.</p>
+            
+            <h3>Наша миссия</h3>
+            <p>Дарить людям радость через вкусную еду и создавать уютную атмосферу для каждого гостя.</p>
+            
+            <h3>Почему выбирают нас:</h3>
+            <ul class="about-list">
+                <li><i class="fas fa-check"></i> Только свежие продукты</li>
+                <li><i class="fas fa-check"></i> Авторские рецепты</li>
+                <li><i class="fas fa-check"></i> Быстрая доставка</li>
+                <li><i class="fas fa-check"></i> Уютная атмосфера</li>
+                <li><i class="fas fa-check"></i> Дружелюбный персонал</li>
+                <li><i class="fas fa-check"></i> Доступные цены</li>
+            </ul>
+            
+            <h3>Наша команда</h3>
+            <p>У нас работают настоящие профессионалы своего дела, которые любят готовить и радовать гостей.</p>
+        </div>
+        
+        <div class="about-stats">
+            <div class="stat-card">
+                <div class="stat-number">13+</div>
+                <div class="stat-label">Лет на рынке</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Видов пиццы</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10000+</div>
+                <div class="stat-label">Довольных клиентов</div>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h3>Контакты</h3>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>г. Москва, ул. Пиццерийная, д. 1</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+7 (999) 123-45-67</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@pizzahouse.ru</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Ежедневно: 10:00 - 23:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

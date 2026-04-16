@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Главная{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Добро пожаловать в PizzaHouse!</h1>
+        <p>Самая вкусная пицца в городе с доставкой на дом</p>
+        <a href="{% url 'catalog' %}" class="btn btn-large">Смотреть меню</a>
+    </div>
+</div>
+
+<div class="features-section">
+    <h2>Почему выбирают нас</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <i class="fas fa-pizza-slice feature-icon"></i>
+            <h3>Свежие продукты</h3>
+            <p>Используем только свежие ингредиенты высшего качества</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-truck feature-icon"></i>
+            <h3>Быстрая доставка</h3>
+            <p>Доставим заказ за 30 минут или пицца бесплатно</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-heart feature-icon"></i>
+            <h3>Любовь к деталям</h3>
+            <p>Готовим с душой и вниманием к каждому заказу</p>
+        </div>
+    </div>
+</div>
+
+<div class="popular-section">
+    <h2>Популярные позиции</h2>
+    <div class="card-grid">
+        {% for tovar in popular_tovars %}
+        <div class="card">
+            <span class="card-category">{{ tovar.get_category_display }}</span>
+            <div class="card-body">
+                <h3 class="card-title">{{ tovar.Vid_tovara }}</h3>
+                <p class="card-description">{{ tovar.description|truncatechars:100 }}</p>
+                <div class="card-price">{{ tovar.Prace }} ₽</div>
+                <div class="card-footer">
+                    <a href="{% url 'tovar_detail' tovar.pk %}" class="btn btn-small">Подробнее</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_to_cart' tovar.pk %}" class="btn btn-small btn-outline">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>В меню пока нет товаров</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="cta-section">
+    <div class="cta-content">
+        <h2>Готовы попробовать?</h2>
+        <p>Закажите прямо сейчас и получите скидку 10% на первый заказ</p>
+        <a href="{% url 'catalog' %}" class="btn btn-large">Перейти в каталог</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - {{ tovar.Vid_tovara }}{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <div class="product-info">
+        <h1>{{ tovar.Vid_tovara }}</h1>
+        <p class="product-category">Категория: {{ tovar.get_category_display }}</p>
+        <p class="product-article">Артикул: {{ tovar.Nomer_tovara }}</p>
+        <p class="product-description">{{ tovar.description }}</p>
+        <div class="product-price">{{ tovar.Prace }} ₽</div>
+        
+        <div class="product-actions">
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_to_cart' tovar.pk %}" class="btn btn-large">
+                <i class="fas fa-cart-plus"></i> Добавить в корзину
+            </a>
+            {% endif %}
+            <a href="{% url 'catalog' %}" class="btn btn-outline">Назад в каталог</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Управление заказами{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <h1>Управление заказами</h1>
+    
+    <div class="admin-header">
+        <a href="{% url 'zakaz_create' %}" class="btn">Создать заказ</a>
+    </div>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>№ заказа</th>
+                    <th>Пользователь</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Оплата</th>
+                    <th>Дата</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for zakaz in zakazs %}
+                <tr>
+                    <td>#{{ zakaz.id }}</td>
+                    <td>{{ zakaz.user.FIO }}</td>
+                    <td>{{ zakaz.Symma }} ₽</td>
+                    <td>
+                        <span class="status status-{{ zakaz.status }}">
+                            {{ zakaz.get_status_display }}
+                        </span>
+                    </td>
+                    <td>{{ zakaz.get_Sposob_oplati_display }}</td>
+                    <td>{{ zakaz.created_at|date:"d.m.Y H:i" }}</td>
+                    <td class="actions">
+                        <a href="{% url 'zakaz_detail' zakaz.pk %}" class="btn btn-small">Детали</a>
+                        <a href="{% url 'zakaz_update' zakaz.pk %}" class="btn btn-small">Изменить</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">Нет заказов</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Оформление заказа{% endblock %}
+
+{% block content %}
+<div class="checkout-container">
+    <h1>Оформление заказа</h1>
+    
+    <div class="checkout-content">
+        <div class="checkout-form">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.Sposob_oplati.id_for_label }}">Способ оплаты</label>
+                    {{ form.Sposob_oplati }}
+                </div>
+                
+                <div class="form-group">
+                    <label>Адрес доставки</label>
+                    <input type="text" class="form-control" value="{{ user.Address }}" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Контактный телефон</label>
+                    <input type="text" class="form-control" value="{{ user.Number }}" readonly>
+                </div>
+                
+                <button type="submit" class="btn btn-large">Подтвердить заказ</button>
+            </form>
+        </div>
+        
+        <div class="checkout-summary">
+            <h3>Ваш заказ</h3>
+            {% with cart=request.session.cart %}
+                {% for tovar_id, quantity in cart.items %}
+                    {% with tovar=tovar_id|get_tovar %}
+                    <div class="checkout-item">
+                        <span>{{ tovar.Vid_tovara }} × {{ quantity }}</span>
+                        <span>{{ tovar.Prace|multiply:quantity }} ₽</span>
+                    </div>
+                    {% endwith %}
+                {% endfor %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}

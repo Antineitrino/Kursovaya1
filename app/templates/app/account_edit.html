@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Редактирование профиля{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Редактирование профиля</h1>
+    
+    <form method="post" class="styled-form">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div class="field-error">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <div class="form-actions">
+            <button type="submit" class="btn">Сохранить изменения</button>
+            <a href="{% url 'account' %}" class="btn btn-outline">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - Каталог{% endblock %}
+
+{% block content %}
+<div class="catalog-container">
+    <h1>Наше меню</h1>
+    
+    <div class="catalog-header">
+        <div class="category-filter">
+            <a href="?category=all" class="category-btn {% if current_category == 'all' %}active{% endif %}">
+                Все
+            </a>
+            {% for key, value in categories.items %}
+            <a href="?category={{ key }}" class="category-btn {% if current_category == key %}active{% endif %}">
+                {{ value }}
+            </a>
+            {% endfor %}
+        </div>
+        
+        <form method="get" class="search-form">
+            <input type="text" name="search" placeholder="Поиск..." value="{{ search }}" class="search-input">
+            <button type="submit" class="btn btn-small">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    
+    <div class="card-grid">
+        {% for tovar in tovars %}
+        <div class="card">
+            <span class="card-category">{{ tovar.get_category_display }}</span>
+            <div class="card-body">
+                <h3 class="card-title">{{ tovar.Vid_tovara }}</h3>
+                <p class="card-description">{{ tovar.description|truncatechars:100 }}</p>
+                <div class="card-price">{{ tovar.Prace }} ₽</div>
+                <div class="card-footer">
+                    <a href="{% url 'tovar_detail' tovar.pk %}" class="btn btn-small">Подробнее</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_to_cart' tovar.pk %}" class="btn btn-small btn-outline">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-catalog">
+            <i class="fas fa-pizza-slice empty-icon"></i>
+            <p>В этой категории пока нет товаров</p>
+            <a href="{% url 'catalog' %}?category=all" class="btn">Посмотреть всё меню</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

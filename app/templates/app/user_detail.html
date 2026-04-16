@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block title %} - {{ user.FIO }}{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <h1>{{ user.FIO }}</h1>
+    
+    <div class="detail-card">
+        <div class="detail-group">
+            <label>Логин:</label>
+            <p>{{ user.username }}</p>
+        </div>
+        <div class="detail-group">
+            <label>ФИО:</label>
+            <p>{{ user.FIO }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Телефон:</label>
+            <p>{{ user.Number }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Адрес:</label>
+            <p>{{ user.Address }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Email:</label>
+            <p>{{ user.email|default:"Не указан" }}</p>
+        </div>
+        <div class="detail-group">
+            <label>Дата регистрации:</label>
+            <p>{{ user.date_joined|date:"d.m.Y H:i" }}</p>
+        </div>
+    </div>
+    
+    <div class="detail-actions">
+        <a href="{% url 'user_update' user.pk %}" class="btn">Редактировать</a>
+        <a href="{% url 'user_list' %}" class="btn btn-outline">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}
