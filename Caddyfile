@@ -1,4 +1,4 @@
-:80 {
+http://192.168.20.128:80 {
    
     reverse_proxy django_app:8000
 }
